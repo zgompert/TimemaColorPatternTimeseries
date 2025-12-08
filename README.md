@@ -7,11 +7,18 @@ I am conducting comparative alignments of all of our phased (haplotype resolved)
 
 ## Genomes
 
-We have four phased genomes that were part of (Gompert et al. 2025)[]. We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. Here is a summary of where things stand:
+We have four phased genomes that were part of (Gompert et al. 2025)[https://www.science.org/doi/full/10.1126/science.adp3745]. We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. The cen* genomes are from Dovetail, the rest are Edinburh. Here is a summary of where things stand:
 
 | ID | Location | Phenotype | Cactus aligns | SibeliaZ aligns |
-|---------|-----|---------|---|---|
+|---------|-----|---------|:-:|:-:-|
+| cen4119 | VP  | Stripe  | Y | Y |
+| cen4280 | VP  | Green   | Y | Y |
+| cen4120 | R12 | Green   | Y | Y |
+| cen4122 | R23 | Stripe  | Y | Y |
 | 24_0016 | VP  | Green   | Y | Y |
+| 24_0028 | VP  | Green   | N | N |
+| 24_0029 | VP  | Green   | N | N |
+| 24_0030 | VP  | Green   | N | N |
 | 24_0038 | VP  | Melanic | Y | Y |
 | 24_0039 | VP  | Melanic | Y | Y |
 | 24_0072 | R12 | Stripe  | Y | Y |
@@ -19,8 +26,59 @@ We have four phased genomes that were part of (Gompert et al. 2025)[]. We also h
 | 24_0087 | VP  | Stripe  | Y | Y |
 | 24_0175 | FH  | Stripe  | Y | Y |
 | 24_0176 | FH  | Stripe  | Y | Y |
+
+My first step with each genome is to split the fasta into files per haplotype and then to run repeat masking. This is done with `repeatmasker` (version 4.0.7); here is an example with six phased genomes:
+
+```bash
+#!/bin/sh 
+#SBATCH --time=96:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=20
+#SBATCH --mem=384000
+#SBATCH --account=gompert
+#SBATCH --qos=gompert-grn
+#SBATCH --partition=gompert-grn
+#SBATCH --job-name=repeat
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+module load repeatmasker
+
+#version 4.0.7
+cd /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/repeat_mask
+
+## run repeat masker on each genome sequencei
+## uses library from the 2020 Science paper developed by Victor
+
+MAX_JOBS=4
+
+genomes=(
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0028/Hap1Chr.fasta"
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0028/Hap2Chr.fasta"
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0029/Hap1Chr.fasta"
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0029/Hap2Chr.fasta"
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0030/Hap1Chr.fasta"
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0030/Hap2Chr.fasta"
+)
+
+for file in "${genomes[@]}"; do
+
+	RepeatMasker -s -e ncbi -xsmall -pa 24 -lib RepeatLibMergeCentroidsRM.lib $file &
+	# Limit the number of background jobs
+	while (( $(jobs -rp | wc -l) >= MAX_JOBS )); do
+		wait -n
+  	done
+done
+
+# Wait for all remaining background jobs to finish
+wait
+```
   
-- I ran repeat masking on them and did a big series of preliminary alignments, see [SynPlotTcrEd.R](SynPlotTcrEd.R)
+## Comparative alignments with Cactus
+
+
+
+I ran repeat masking on them and did a big series of preliminary alignments, see [SynPlotTcrEd.R](SynPlotTcrEd.R)
 
 - I then extracted chromosome 8 from all of the phased, *T. cristinae* genomes, see [extractCh8.pl](extractCh8.pl) and `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes`
 
