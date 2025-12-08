@@ -3,7 +3,7 @@ Combined analyses of color and pattern in Timema cristinae, genetic mapping, com
 
 # Timema cristinae comparative alignments
 
-We are considering adding comparative alignments of all of the phased *T. cristinae* genomes with a focus on chromosomal rearrangements on chromosome 8 associated with color and pattern as part of this project (to think about the evolution of supergenes).
+I am conducting comparative alignments of all of our phased (haplotype resolved) *Timema cristinae* genomes. This is an ongoing enterprise. I am starting with a bunch of pairwise alignments, but also am trying various approaches to align many genomes together.
 
 I need to fill in additional details, but, a few quick summaries (before I forget things):
 
