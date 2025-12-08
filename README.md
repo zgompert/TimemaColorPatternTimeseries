@@ -5,9 +5,9 @@ Combined analyses of color and pattern in Timema cristinae, genetic mapping, com
 
 I am conducting comparative alignments of all of our phased (haplotype resolved) *Timema cristinae* genomes. This is an ongoing enterprise. I am starting with a bunch of pairwise alignments, but also am trying various approaches to align many genomes together.
 
-I need to fill in additional details, but, a few quick summaries (before I forget things):
+## Genomes
 
-- The new genomes are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`
+The new genomes are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`
 
 24_0016 VP Green
 24_0038 VP Melanic
