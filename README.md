@@ -7,7 +7,7 @@ I am conducting comparative alignments of all of our phased (haplotype resolved)
 
 ## Genomes
 
-We have four phased genomes that were part of (Gompert et al. 2025)[https://www.science.org/doi/full/10.1126/science.adp3745]. We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. The cen* genomes are from Dovetail, the rest are Edinburh. Here is a summary of where things stand:
+We have four phased genomes that were part of [Gompert et al. 2025](https://www.science.org/doi/full/10.1126/science.adp3745). We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. The cen* genomes are from Dovetail, the rest are Edinburh. Here is a summary of where things stand:
 
 | ID | Location | Phenotype | Cactus aligns | SibeliaZ aligns |
 |---------|-----|---------|:-:|:-:|
@@ -76,13 +76,17 @@ wait
   
 ## Comparative alignments with Cactus
 
+As a first pass aimed at identifying homologous chromosomes (and some additional details), I am using `Cactus` to conduct pairwise genome alignments. We now have too many genomes to do this in a fully exhaustive manner, but we can do a sufficient number to track homology across all of the genomes.
 
+Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R). I am in the process of creating a table (to appear below) tracking homology across all of the genomes.
 
-I ran repeat masking on them and did a big series of preliminary alignments, see [SynPlotTcrEd.R](SynPlotTcrEd.R)
+## Chromosome 8 alignments with SibeliaZ
 
-- I then extracted chromosome 8 from all of the phased, *T. cristinae* genomes, see [extractCh8.pl](extractCh8.pl) and `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes`
+`SibeliaZ` provides a refernce-based, many genome alignment tool that is pretty fast and accurate (see [Minkin and Medvedev 2020](https://www.nature.com/articles/s41467-020-19777-8)). I am using this for aligning all of the copies of chromosome 8 together.
 
-- I used SibeliaZ to do an initial alignment of this (it is fast but not as good at deeper divergence)
+For this, I first extraced chromosome 8 from all of the phased, *T. cristinae* genomes, see [extractCh8.pl](extractCh8.pl) and `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes`
+
+I then used `SibeliaZ` to generate the alignments.
 
 ```bash
 #!/bin/bash 
@@ -106,15 +110,14 @@ cd /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_a
 ## -a = 24 genomes * 4 * 2
 ~/source/SibeliaZ/build/bin/bin/sibeliaz -k 25 -a 192 -b 200 -m 50 -t 180 ch8_t_cris_e_240016h1.fasta ch8_t_cris_e_240072h1.fasta ch8_t_cris_e_240175h1.fasta ch8_t_cris_h_gus1.fasta ch8_t_cris_e_240016h2.fasta ch8_t_cris_e_240072h2.fasta ch8_t_cris_e_240175h2.fasta ch8_t_cris_h_gus2.fasta ch8_t_cris_e_240038h1.fasta ch8_t_cris_e_240073h1.fasta ch8_t_cris_e_240176h1.fasta ch8_t_cris_r_gs1.fasta ch8_t_cris_e_240038h2.fasta ch8_t_cris_e_240073h2.fasta ch8_t_cris_e_240176h2.fasta ch8_t_cris_r_gs2.fasta ch8_t_cris_e_240039h1.fasta ch8_t_cris_e_240087h1.fasta ch8_t_cris_h_gs1.fasta ch8_t_cris_r_gus1.fasta ch8_t_cris_e_240039h2.fasta ch8_t_cris_e_240087h2.fasta ch8_t_cris_h_gs2.fasta ch8_t_cris_r_gus2.fasta
 ```
-- The results are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out`
+The results are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out`
 
-- I converted the aligment file to mfa format using [maftools](https://github.com/dentearl/mafTools/tree/master?tab=readme-ov-file)
+I converted the aligment file to mfa format using [maftools](https://github.com/dentearl/mafTools/tree/master?tab=readme-ov-file)
 
 ```bash
  ~/source/mafTools/bin/mafToFastaStitcher --maf sibeliaz_out/alignment.maf --seqs ch8_combined.fasta --breakpointPenalty 5 --interstitialSequence 20  --outMfa output.mfa
 ```
-
-- Next I used [trimAl](https://trimal.readthedocs.io/en/latest/usage.html) to remove any positions from the alignment with gaps.
+Next I used [trimAl](https://trimal.readthedocs.io/en/latest/usage.html) to remove any positions from the alignment with gaps.
 
 ```bash
 ## auto, not used
