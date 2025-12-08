@@ -7,16 +7,18 @@ I am conducting comparative alignments of all of our phased (haplotype resolved)
 
 ## Genomes
 
-The new genomes are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`
+We have four phased genomes that were part of (Gompert et al. 2025)[]. We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. Here is a summary of where things stand:
 
-24_0016 VP Green
-24_0038 VP Melanic
-24_0039 VP Melanic
-24_0072 R12 Stripe
-24_0073 R12 Green
-24_0087 VP Stripe
-24_0175 FH Stripe
-24_0176 FH Stripe
+| ID | Location | Phenotype | Cactus aligns | SibeliaZ aligns |
+|---------|-----|---------|---|---|
+| 24_0016 | VP  | Green   | Y | Y |
+| 24_0038 | VP  | Melanic | Y | Y |
+| 24_0039 | VP  | Melanic | Y | Y |
+| 24_0072 | R12 | Stripe  | Y | Y |
+| 24_0073 | R12 | Green   | Y | Y |
+| 24_0087 | VP  | Stripe  | Y | Y |
+| 24_0175 | FH  | Stripe  | Y | Y |
+| 24_0176 | FH  | Stripe  | Y | Y |
   
 - I ran repeat masking on them and did a big series of preliminary alignments, see [SynPlotTcrEd.R](SynPlotTcrEd.R)
 
