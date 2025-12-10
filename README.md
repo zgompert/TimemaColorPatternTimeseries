@@ -220,3 +220,9 @@ cd /scratch/general/nfs1/u6000989/cactus
 
 cactus jobStore_Prog /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/ch8_cactus.txt cactusTcrAll8.hal --maxCores 72
 ```
+
+# Color and patter time series
+
+We are using the *T. cristinae* time series data to test for evidence of rapid evolution combined with balanced processes/stasis at longer time scales. I initially was thinking about this in the context of predictability and ARMA models, but even a few gaps in the time series mess those up. So, instead I am focusing on how rates or change depend or don't on time (i.e., rate-scaling thinking).
+
+Here is a current hierarchical Bayesian version of the analysis: [R script](RatesCris25-err.R), [stan model](hlm2.stan). I am pretty happy with this. It even accounts for sampling error by simulating expected change by sampling error (binomial sampling based on the sample sizes). Note that for this, I subtract off the effects of sampling for individual repliecate simulations, set negative change to 0, and then take the mean across replicates.
