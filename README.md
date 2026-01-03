@@ -78,9 +78,30 @@ wait
   
 ## Comparative alignments with Cactus
 
-As a first pass aimed at identifying homologous chromosomes (and some additional details), I am using `Cactus` to conduct pairwise genome alignments. We now have too many genomes to do this in a fully exhaustive manner, but we can do a sufficient number to track homology across all of the genomes.
+As a first pass aimed at identifying homologous chromosomes (and some additional details), I am using `Cactus` to conduct pairwise genome alignments. We now have too many genomes to do this in a fully exhaustive manner, but we can do a sufficient number to track homology across all of the genomes. See [runCactusEdr2.sh](runCactusEdr2.sh)-[runCactusEdr8.sh](runCactusEdr8.sh) for eaxamples.
 
-Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R). I am in the process of creating a table (to appear below) tracking homology across all of the genomes.
+Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and XXX. I am in the process of creating a table (below) tracking homology across all of the genomes.
+
+| ID | ch1 | ch2 | ch3 | ch4 | ch5 | ch6 | ch7 | ch8 | ch9 | ch10 | ch11 | ch12 | ch 13 | 
+|---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| cen4119 | 
+| cen4280 | 
+| cen4120 | 
+| cen4122 | 
+| 24_0016 | 
+| 24_0028 | 
+| 24_0029 |
+| 24_0030 | 
+| 24_0038 |
+| 24_0039 | 
+| 24_0072 |
+| 24_0073 |
+| 24_0087 | 
+| 24_0089 | 
+| 24_0175 | 
+| 24_0176 |
+| 24_0179 |
+
 
 ## Chromosome 8 alignments with SibeliaZ
 
