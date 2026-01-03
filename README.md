@@ -80,7 +80,7 @@ wait
 
 As a first pass aimed at identifying homologous chromosomes (and some additional details), I am using `Cactus` to conduct pairwise genome alignments. We now have too many genomes to do this in a fully exhaustive manner, but we can do a sufficient number to track homology across all of the genomes. See [runCactusEdr2.sh](runCactusEdr2.sh)-[runCactusEdr8.sh](runCactusEdr8.sh) for eaxamples.
 
-Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and XXX. I am in the process of creating a table (below) tracking homology across all of the genomes. For the Dovetail genomes (cen IDs), chromosome assignments are by haplotype, but the the Edinburgh genomes they are not, as in the latter case homologous scaffolds have the same numbers already.
+Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and [SynPlotTcrEd2.R](SynPlotTcrEd2.R). I am in the process of creating a table (below) tracking homology across all of the genomes. For the Dovetail genomes (cen IDs), chromosome assignments are by haplotype, but the the Edinburgh genomes they are not, as in the latter case homologous scaffolds have the same numbers already.
 
 | ID | ch1 | ch2 | ch3 | ch4 | ch5 | ch6 | ch7 | ch8 | ch9 | ch10 | ch11 | ch12 | ch13 | 
 |---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -104,7 +104,7 @@ Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and X
 | 24_0089 | 5 | 13 | 12 | 8 | 10 | 7 | 11 | 3 | 6 | 2 | 4 | 9 | 1 |
 | 24_0175 | 7 | 5 | 2 | 1 | 13 | 6 | 12 | 4 | 9 | 10 | 11 | 8 | 3 |
 | 24_0176 | 8 | 5 | 2 | 1 | 13 | 6 | 12 | 4 | 10 | 9 | 11 | 7 | 3 |
-| 24_0179 |
+| 24_0179 | 10 | 7 | 2 | 1 | 6 | 8 | 13 | 5 | 11 | 12 | 3 | 9 | 4 |
 
 
 ## Chromosome 8 alignments with SibeliaZ
