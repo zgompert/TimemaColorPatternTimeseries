@@ -9,23 +9,25 @@ I am conducting comparative alignments of all of our phased (haplotype resolved)
 
 We have four phased genomes that were part of [Gompert et al. 2025](https://www.science.org/doi/full/10.1126/science.adp3745). We also have newer phased genomes from Edinburgh genomics, which are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edinburgh`. The cen* genomes are from Dovetail, the rest are Edinburh. Here is a summary of where things stand:
 
-| ID | Location | Phenotype | Cactus aligns | SibeliaZ aligns |
-|---------|-----|---------|:-:|:-:|
-| cen4119 | VP  | Stripe  | Y | Y |
-| cen4280 | VP  | Green   | Y | Y |
-| cen4120 | R12 | Green   | Y | Y |
-| cen4122 | R23 | Stripe  | Y | Y |
-| 24_0016 | VP  | Green   | Y | Y |
-| 24_0028 | VP  | Green   | N | N |
-| 24_0029 | VP  | Green   | N | N |
-| 24_0030 | VP  | Green   | N | N |
-| 24_0038 | VP  | Melanic | Y | Y |
-| 24_0039 | VP  | Melanic | Y | Y |
-| 24_0072 | R12 | Stripe  | Y | Y |
-| 24_0073 | R12 | Green   | Y | Y |
-| 24_0087 | VP  | Stripe  | Y | Y |
-| 24_0175 | FH  | Stripe  | Y | Y |
-| 24_0176 | FH  | Stripe  | Y | Y |
+| ID | Location | Phenotype | Cactus aligns | SibeliaZ aligns | Annotation | 
+|---------|-----|---------|:-:|:-:|:-:|
+| cen4119 | VP  | Stripe  | Y | Y |  |
+| cen4280 | VP  | Green   | Y | Y |  |
+| cen4120 | R12 | Green   | Y | Y |  |
+| cen4122 | R23 | Stripe  | Y | Y |  |
+| 24_0016 | VP  | Green   | Y | Y |  |
+| 24_0028 | VP  | Green   | Y | N |  |
+| 24_0029 | VP  | Green   | Y | N |  |
+| 24_0030 | VP  | Green   | Y | N |  |
+| 24_0038 | VP  | Melanic | Y | Y |  |
+| 24_0039 | VP  | Melanic | Y | Y |  |
+| 24_0072 | R12 | Stripe  | Y | Y |  |
+| 24_0073 | R12 | Green   | Y | Y |  |
+| 24_0087 | VP  | Stripe  | Y | Y |  |
+| 24_0089 | VP  | Stripe  | Y | N |  |
+| 24_0175 | FH  | Stripe  | Y | Y |  |
+| 24_0176 | FH  | Stripe  | Y | Y |  |
+| 24_0179 | FH  | Stripe  | Y | N |  |
 
 My first step with each genome is to split the fasta into files per haplotype and then to run repeat masking. This is done with `repeatmasker` (version 4.0.7); here is an example with six phased genomes:
 
