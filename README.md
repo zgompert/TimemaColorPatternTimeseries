@@ -80,14 +80,18 @@ wait
 
 As a first pass aimed at identifying homologous chromosomes (and some additional details), I am using `Cactus` to conduct pairwise genome alignments. We now have too many genomes to do this in a fully exhaustive manner, but we can do a sufficient number to track homology across all of the genomes. See [runCactusEdr2.sh](runCactusEdr2.sh)-[runCactusEdr8.sh](runCactusEdr8.sh) for eaxamples.
 
-Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and XXX. I am in the process of creating a table (below) tracking homology across all of the genomes.
+Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and XXX. I am in the process of creating a table (below) tracking homology across all of the genomes. For the Dovetail genomes (cen IDs), chromosome assignments are by haplotype, but the the Edinburgh genomes they are not, as in the latter case homologous scaffolds have the same numbers already.
 
-| ID | ch1 | ch2 | ch3 | ch4 | ch5 | ch6 | ch7 | ch8 | ch9 | ch10 | ch11 | ch12 | ch 13 | 
+| ID | ch1 | ch2 | ch3 | ch4 | ch5 | ch6 | ch7 | ch8 | ch9 | ch10 | ch11 | ch12 | ch13 | 
 |---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| cen4119 | 
-| cen4280 | 
-| cen4120 | 
-| cen4122 | 
+| cen4119-h1 | 13 | 5 | 3 | 1 | 12 | 4 | 10 | 11| 8 | 7 | 9 | 6 | 2 |
+| cen4119-h2 | 13 | 6 | 2 | 1 | 12 | 5 | 8 | 4 | 9 | 7 | 10 | 11 | 3 |
+| cen4280-h1 | 22 | 23 | 64 | 5 | 11 | 54 | 7 | 46 | 15 | 2 | 1 | 36 |
+| cen4280-h2 | 15 | 1 | 3 | 35 | 10 | 44 | 7 | 23 | 21 | 16 | 12 | 36 | 8 |
+| cen4120-h1 | 4 | 11 | 1 | 1 | 6 | | 7 | 10 | 3 | 9 | 8 | 5 | 12 | 2 |
+| cen4120-h2 | 6 | 9 | 1 | 1 | 4 | 5 | 11 | 3 | 8 | 10 | 7 | 12 | 2 |
+| cen4122-h1 | 12 | 6 | 2 | 1 | 7 | 8 | 10 | 11 | 5 |4 | 9 | 13 | 3 |
+| cen4122-h2 | 10 | 8 | 1 | 1 | 2 | 5 | 7 | 9 | 4 | 3 | 6 | 12 | 11 |
 | 24_0016 | 
 | 24_0028 | 
 | 24_0029 |
