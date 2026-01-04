@@ -111,19 +111,17 @@ Summaries of what I have so far are here: [SynPlotTcrEd.R](SynPlotTcrEd.R) and [
 
 `SibeliaZ` provides a refernce-based, many genome alignment tool that is pretty fast and accurate (see [Minkin and Medvedev 2020](https://www.nature.com/articles/s41467-020-19777-8)). I am using this for aligning all of the copies of chromosome 8 together.
 
-For this, I first extraced chromosome 8 from all of the phased, *T. cristinae* genomes, see [extractCh8.pl](extractCh8.pl) and `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes`
+For this, I first extraced chromosome 8 from all 34 of the phased, *T. cristinae* genomes, see [extractCh8.pl](extractCh8.pl) and `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes`
 
 I then used `SibeliaZ` to generate the alignments.
 
 ```bash
 #!/bin/bash 
-#SBATCH --time=96:00:00
+#SBATCH --time=240:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=96
-#SBATCH --mem=724000
-#SBATCH --account=gompert
-#SBATCH --qos=gompert-grn
-#SBATCH --partition=gompert-grn
+#SBATCH --ntasks=30
+#SBATCH --account=gompert-np
+#SBATCH --partition=gompert-np
 #SBATCH --job-name=sibelia
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=zach.gompert@usu.edu
@@ -134,8 +132,8 @@ cd /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_a
 
 ## see https://github.com/medvedevgroup/SibeliaZ
 ## for options
-## -a = 24 genomes * 4 * 2
-~/source/SibeliaZ/build/bin/bin/sibeliaz -k 25 -a 192 -b 200 -m 50 -t 180 ch8_t_cris_e_240016h1.fasta ch8_t_cris_e_240072h1.fasta ch8_t_cris_e_240175h1.fasta ch8_t_cris_h_gus1.fasta ch8_t_cris_e_240016h2.fasta ch8_t_cris_e_240072h2.fasta ch8_t_cris_e_240175h2.fasta ch8_t_cris_h_gus2.fasta ch8_t_cris_e_240038h1.fasta ch8_t_cris_e_240073h1.fasta ch8_t_cris_e_240176h1.fasta ch8_t_cris_r_gs1.fasta ch8_t_cris_e_240038h2.fasta ch8_t_cris_e_240073h2.fasta ch8_t_cris_e_240176h2.fasta ch8_t_cris_r_gs2.fasta ch8_t_cris_e_240039h1.fasta ch8_t_cris_e_240087h1.fasta ch8_t_cris_h_gs1.fasta ch8_t_cris_r_gus1.fasta ch8_t_cris_e_240039h2.fasta ch8_t_cris_e_240087h2.fasta ch8_t_cris_h_gs2.fasta ch8_t_cris_r_gus2.fasta
+## -a = 34 genomes * 4 * 2
+~/source/SibeliaZ/build/bin/bin/sibeliaz -k 25 -a 272 -b 200 -m 50 -t 96 ch8_t_cris_e_240016h1.fasta ch8_t_cris_e_240016h2.fasta ch8_t_cris_e_240028h1.fasta ch8_t_cris_e_240028h2.fasta ch8_t_cris_e_240029h1.fasta ch8_t_cris_e_240029h2.fasta ch8_t_cris_e_240030h1.fasta ch8_t_cris_e_240030h2.fasta ch8_t_cris_e_240038h1.fasta ch8_t_cris_e_240038h2.fasta ch8_t_cris_e_240039h1.fasta ch8_t_cris_e_240039h2.fasta ch8_t_cris_e_240072h1.fasta ch8_t_cris_e_240072h2.fasta ch8_t_cris_e_240073h1.fasta ch8_t_cris_e_240073h2.fasta ch8_t_cris_e_240087h1.fasta ch8_t_cris_e_240087h2.fasta ch8_t_cris_e_240089h1.fasta ch8_t_cris_e_240089h2.fasta ch8_t_cris_e_240175h1.fasta ch8_t_cris_e_240175h2.fasta ch8_t_cris_e_240176h1.fasta ch8_t_cris_e_240176h2.fasta ch8_t_cris_e_240179h1.fasta ch8_t_cris_e_240179h2.fasta ch8_t_cris_h_gs1.fasta ch8_t_cris_h_gs2.fasta ch8_t_cris_h_gus1.fasta ch8_t_cris_h_gus2.fasta ch8_t_cris_r_gs1.fasta ch8_t_cris_r_gs2.fasta ch8_t_cris_r_gus1.fasta ch8_t_cris_r_gus2.fasta 
 ```
 The results are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out`
 
