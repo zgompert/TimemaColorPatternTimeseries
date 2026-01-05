@@ -137,6 +137,11 @@ cd /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_a
 ```
 The results are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out`
 
+
+## Creating input for progressive cactus
+
+This covers an initial analysis I did using a subset of 24 genomes. I am less convinced now that this is the right approach given the nature of our sampling (population sampling rather than more phylogenetic sampling), but I am leaving the notes here in case I want to come back to this. If so, I need to update it for the full set of 34 genomes.
+
 I converted the aligment file to mfa format using [maftools](https://github.com/dentearl/mafTools/tree/master?tab=readme-ov-file)
 
 ```bash
