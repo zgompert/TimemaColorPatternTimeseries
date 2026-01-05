@@ -137,6 +137,24 @@ cd /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_a
 ```
 The results are in `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out`
 
+I next converted the maf file, `alignment.maf` to a syntency file for plotting:
+
+```bash
+#Usage: maf2synteny [-o out_dir] [-s simpl_params] [-b block_sizes] alignment_file
+#positional arguments:
+#	alignment_file	path to alignment file in maf or gff format
+#
+#optional arguments:
+#	-o out_dir	path to the output directory [default = .]
+#	-s simpl_params	path to a file with custom simplification parameters [default = not set]
+#	-b block_sizes	comma-separated list of synteny block scales [default = 5000]
+
+maf2synteny alignment.maf -o synteny
+```
+The results from this are here: `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/sibeliaz_out/synteny/5000`.
+
+I then ran [formatSynteny.pl](formatSynteny.pl) to reformat `block_coords.txt` to facilitate plotting. This produces `syn_blocks.txt`. Lastly, I generated plots of the results with [plotSynenty.R](plotSynenty.R). The `chsizes.txt` and `alt_chsizes.txt` are needed for ribbon plots.
+
 
 ## Creating input for progressive cactus
 
