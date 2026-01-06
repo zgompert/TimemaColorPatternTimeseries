@@ -16,18 +16,18 @@ We have four phased genomes that were part of [Gompert et al. 2025](https://www.
 | cen4120 | R12 | Green   | Y | Y |  |
 | cen4122 | R23 | Stripe  | Y | Y |  |
 | 24_0016 | VP  | Green   | Y | Y |  |
-| 24_0028 | VP  | Green   | Y | N |  |
-| 24_0029 | VP  | Green   | Y | N |  |
-| 24_0030 | VP  | Green   | Y | N |  |
+| 24_0028 | VP  | Green   | Y | Y |  |
+| 24_0029 | VP  | Green   | Y | Y |  |
+| 24_0030 | VP  | Green   | Y | Y |  |
 | 24_0038 | VP  | Melanic | Y | Y |  |
 | 24_0039 | VP  | Melanic | Y | Y |  |
 | 24_0072 | R12 | Stripe  | Y | Y |  |
 | 24_0073 | R12 | Green   | Y | Y |  |
 | 24_0087 | VP  | Stripe  | Y | Y |  |
-| 24_0089 | VP  | Stripe  | Y | N |  |
+| 24_0089 | VP  | Stripe  | Y | Y |  |
 | 24_0175 | FH  | Stripe  | Y | Y |  |
 | 24_0176 | FH  | Stripe  | Y | Y |  |
-| 24_0179 | FH  | Stripe  | Y | N |  |
+| 24_0179 | FH  | Stripe  | Y | Y |  |
 
 My first step with each genome is to split the fasta into files per haplotype and then to run repeat masking. This is done with `repeatmasker` (version 4.0.7); here is an example with six phased genomes:
 
