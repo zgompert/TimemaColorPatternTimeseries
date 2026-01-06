@@ -84,3 +84,31 @@ text(rep(-1.2e7,34),1:34,chinfo$ID)
 par(xpd=FALSE)
 dev.off()
 
+## dotplots sorted
+ord2<-rep(NA,34)
+for(i in 1:34){
+        ord2[i]<-which(chinfo[,3]==sp8[i])
+}
+Nsp<-length(sp)
+cs<-c("darkorange3","dimgray")
+pdf("tcris_ch8_dotplots2.pdf",height=12,width=8.57)
+par(mfrow=c(7,5))
+par(mar=c(3,3,.5,.5))
+for(i in ord){
+        for(j in ord){
+                cat(i,",",j,"\n")
+                if(i != j){
+                        midA<-(RalnStart[,i] + RalnEnd[,i])/2
+                        midB<-(RalnStart[,j] + RalnEnd[,j])/2
+                        cid<-(alnStrand[,i]==alnStrand[,j])+1
+                        plot(midA,midB,pch=19,xlab="",ylab="",col=cs[cid],cex.lab=1.1,axes=FALSE)
+                        mtext(chinfo$ID[ord2][i],side=1,line=.7)
+                        mtext(chinfo$ID[ord2][j],side=2,line=.7)
+                        box()
+                } else{
+                        plot(0,0,type='n',axes=FALSE,xlab="",ylab="")
+                }
+        }
+        plot(0,0,type='n',axes=FALSE,xlab="",ylab="")
+}
+dev.off()
