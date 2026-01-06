@@ -157,6 +157,8 @@ I then ran [formatSynteny.pl](formatSynteny.pl) to reformat `block_coords.txt` t
 
 <img width="4596" height="6506" alt="aln_VP_G_GUS_2" src="https://github.com/user-attachments/assets/0d21be64-d84c-4acd-8f91-e2a357ab5e2b" />
 
+<img width="4596" height="6474" alt="aln_R_S_GS_2" src="https://github.com/user-attachments/assets/d9856cca-b409-45db-b0b6-a76e987df39d" />
+
 
 ## Creating input for progressive cactus
 
