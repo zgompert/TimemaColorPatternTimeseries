@@ -155,6 +155,8 @@ The results from this are here: `/uufs/chpc.utah.edu/common/home/gompert-group4/
 
 I then ran [formatSynteny.pl](formatSynteny.pl) to reformat `block_coords.txt` to facilitate plotting. This produces `syn_blocks.txt`. Lastly, I generated plots of the results with [plotSynenty.R](plotSynenty.R). The `chsizes.txt` and `alt_chsizes.txt` are needed for ribbon plots.
 
+<img width="4596" height="6506" alt="aln_VP_G_GUS_2" src="https://github.com/user-attachments/assets/0d21be64-d84c-4acd-8f91-e2a357ab5e2b" />
+
 
 ## Creating input for progressive cactus
 
