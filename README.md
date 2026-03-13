@@ -205,7 +205,47 @@ In addition to all of the comparative alignments, I want to use a series of GWA 
 | 24_0038 | VP  | Melanic | 1 | melanic |
 | 24_0176 | FH  | Stripe  | 1 | stripe |
 
-The GBS data for mapping are 602 *T. cristinae* from Hwy 154, specifically FHA (see [Comeault et al., 2015](https://www.cell.com/current-biology/fulltext/S0960-9822(15)00661-2)). The fastq files are in `/uufs/chpc.utah.edu/common/home/gompert-group3/data/timema_clines_rw_SV/reads_fha_mapping_sample`.
+The GBS data for mapping are 602 *T. cristinae* from Hwy 154, specifically FHA (see [Comeault et al., 2015](https://www.cell.com/current-biology/fulltext/S0960-9822(15)00661-2)). I am using scripts in `/uufs/chpc.utah.edu/common/home/gompert-group3/data/timema_clines_rw_SV/reads_fha_mapping_sample` and have the raw data copied to `/scratch/general/nfs1/u6000989/fha`
+
+I used `bwa` (version 0.7.19-r1273) for the alignments; the loop here is over files and genomes.
+
+```perl
+#!/usr/bin/perl
+#
+# bwa aln and samse
+#
+
+
+use Parallel::ForkManager;
+my $max = 28;
+my $pm = Parallel::ForkManager->new($max);
+
+my @genome  = ("/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gs_hap_cen4119/HiRise/Hap2/chroms_final_assembly.fasta.masked",
+        "/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0029/Hap1Chr.fasta.masked",
+        "/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0176/Hap1Chr.fasta.masked",
+        "/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0038/Hap1Chr.fasta.masked");
+
+@ids = ("ref4119h2","ref0029h1","ref0176h1","ref0038h1");
+
+foreach $genome (@genome){
+        $id = shift(@ids);
+        FILES:
+        foreach $fq (@ARGV){
+                $pm->start and next FILES; ## fork
+                if ($fq =~ m/^(2013[A-Z0-9_]+)/){
+                        $ind = $1;
+                }
+                else {
+                        die "Failed to match $file\n";
+                }
+                system "bwa aln -n 4 -l 20 -k 2 -t 1 -q 10 -f a_$id"."_$ind".".sai $genome $fq\n";
+                system "bwa samse -n 1 -r \'\@RG\\tID:fha-"."$ind\\tPL:ILLUMINA\\tLB:fha-"."$ind\\tSM:fha-"."$ind"."\' -f a_$id"."_$ind".".sam $genome a_$id"."_$ind".".sai $fq\n";
+                $pm->finish;
+        }
+}
+
+$pm->wait_all_children;
+```
 
 ## Creating input for progressive cactus
 
