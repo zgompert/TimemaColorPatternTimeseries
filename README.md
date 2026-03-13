@@ -161,6 +161,36 @@ I used the dot plots to score each ahplotype for 6 large SV (see the images belo
 
 <img width="4596" height="6474" alt="aln_R_S_GS_2" src="https://github.com/user-attachments/assets/d9856cca-b409-45db-b0b6-a76e987df39d" />
 
+## Pangenome construction and SV calling with cactus-minigraph
+
+I am following up on the `SibeliaZ` results, speficially the possible SV within the inverted translocation that is associated with pattern on Hwy154, by creating and identifying smaller SV from a pangenome constructed with `cactus-minigraph` (version 3.0.1). The basic approach is described [here](https://github.com/ComparativeGenomicsToolkit/cactus/blob/master/doc/pangenome.md). I had considered also using this (or a flattened/concatenated version of the pangenome) to align reads to for GWA, but I don't think the methods are quite there yet (next time). So, this is really just for calling SV, which seems better developed. I am creating two versions of the pangenome, both just for chromosome 8, one will of 34 phased *T. cristinae* genomes and one with the subset from Hwy154 (26). Here is the submission command. 
+
+```bash
+#!/bin/bash 
+#SBATCH --time=144:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=24
+#SBATCH --mem=480000
+#SBATCH --account=gompert-np
+#SBATCH --partition=gompert-np
+#SBATCH --qos=gompert-np
+#SBATCH --job-name=cactus
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+
+module load cactus/3.0.1
+
+cd /scratch/general/nfs1/u6000989/cactus
+
+## all genomes, chromosome 8 only
+cactus-pangenome tcrAll8 ch8seqs.txt --outDir /scratch/general/nfs1/u6000989/cactus/ --outName tcrAll8 --reference ref_ch8_t_cris_h_gus2 --maxCores 48 --vcf --giraffe --gfa --gbz --chrom-og --viz
+
+## hwy154 only, chromosome 8 only
+cactus-pangenome tcrHwy8 ch8seqsHwy.txt --outDir /scratch/general/nfs1/u6000989/cactus/ --outName tcrHwy8 --reference ref_ch8_t_cris_h_gus2 --maxCores 48 --vcf --giraffe --gfa --gbz --chrom-og --viz
+```
+
+I am using mostly default options but generating all of the output. Note that it makes three versions of the graph by default: a full graph, a graph default graph (a graph with problematic sequences clipped out) and an allele frequency-filtered graph (removes SV not supported by 2 or more haplotypes) ([Hickey et al 2024](https://www.nature.com/articles/s41587-023-01793-w)). 
 
 ## Creating input for progressive cactus
 
