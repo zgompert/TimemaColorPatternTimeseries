@@ -192,6 +192,21 @@ cactus-pangenome tcrHwy8 ch8seqsHwy.txt --outDir /scratch/general/nfs1/u6000989/
 
 I am using mostly default options but generating all of the output. Note that it makes three versions of the graph by default: a full graph, a graph default graph (a graph with problematic sequences clipped out) and an allele frequency-filtered graph (removes SV not supported by 2 or more haplotypes) ([Hickey et al 2024](https://www.nature.com/articles/s41587-023-01793-w)). 
 
+## GWA mapping of color and stripe for Hwy154
+
+In addition to all of the comparative alignments, I want to use a series of GWA scans for color pattern (and color) to refine our understanding of the genetics of patter vs color, especially on Hwy154. My plan it to map with multiple genomes, but otherwise follow the same protocol as in the past: [StripeGenetics](https://github.com/zgompert/StripeGenetics). The last analysis used haplotype 2 from cen4280 (VP, green) and haplotype 1 from cen4119 (VP, stripe). I am pretty confident the first of those is a ``green" haplotype whereas I now think the striped stick insect is heterozygous and that the haplotype I used is better thought of as ``melanic" (which is mostly similar to stripe). My plan is to use the six genomes below (the first two were part of the last study):
+
+| ID | Location | Phenotype | Haplotype | Allele? | 
+|---------|-----|---------|:--:|--------|
+| cen4280 | VP  | Green  |  2 | green |
+| cen4119 | VP  | Stripe  |  1 | melanic |
+| cen4119 | VP  | Stripe  |  2 | stripe  |
+| 24_0029 | VP  | Green   | 1 | green |
+| 24_0038 | VP  | Melanic | 1 | melanic |
+| 24_0176 | FH  | Stripe  | 1 | stripe |
+
+The GBS data for mapping are 602 *T. cristinae* from Hwy 154, specifically FHA (see [Comeault et al., 2015](https://www.cell.com/current-biology/fulltext/S0960-9822(15)00661-2)). The fastq files are in `/uufs/chpc.utah.edu/common/home/gompert-group3/data/timema_clines_rw_SV/reads_fha_mapping_sample`.
+
 ## Creating input for progressive cactus
 
 This covers an initial analysis I did using a subset of 24 genomes. I am less convinced now that this is the right approach given the nature of our sampling (population sampling rather than more phylogenetic sampling), but I am leaving the notes here in case I want to come back to this. If so, I need to update it for the full set of 34 genomes.
