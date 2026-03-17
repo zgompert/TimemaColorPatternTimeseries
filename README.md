@@ -293,7 +293,61 @@ foreach $sam (@ARGV){
 
 $pm->wait_all_children;
 ```
+I then called variants based on each of the four genomes. I am using the program version and command-line options as I did for the other two genomes used in our past analyses and thus the results should be directly comparable: [StripeGenetics](https://github.com/zgompert/StripeGenetics). Using `samtools` (version 1.16) and `bcftools` (version 1.16) I ran:
 
+```bash
+#!/bin/sh
+#SBATCH --time=96:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=28
+#SBATCH --mem=480000
+#SBATCH --account=gompert-kp
+#SBATCH --partition=gompert-kp
+#SBATCH --qos=gompert-kp
+#SBATCH --job-name=bcfcall
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+module load samtools/1.16
+module load bcftools/1.16
+
+cd /scratch/general/nfs1/u6000989/fha
+perl VarCallFor.pl
+```
+
+Which runs,
+
+```perl
+#!/usr/bin/perl
+#
+# variant calling
+#
+
+
+use Parallel::ForkManager;
+my $max = 4;
+my $pm = Parallel::ForkManager->new($max);
+
+my @genome  = ("/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gs_hap_cen4119/HiRise/Hap2/chroms_final_assembly.fasta.masked",
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0029/Hap1Chr.fasta.masked",
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0176/Hap1Chr.fasta.masked",
+	"/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/edingburgh/24_0038/Hap1Chr.fasta.masked");
+
+@bams = ("ref4119h2","ref0029h1","ref0176h1","ref0038h1");
+
+FILES:
+foreach $genome (@genome){
+	$bamf = shift(@bams);
+	$pm->start and next FILES; ## fork
+	system "samtools faidx $genome\n";
+	system "bcftools mpileup -b bams_$bamf -C 50 -d 500 -f $genome -q 20 -Q 30 -I -Ou -a DP,AD,ADF,ADR | bcftools call -v -c -p 0.01 -P 0.001 -O v -o tcr_$bamf.vcf\n"; 
+	$pm->finish;
+}
+
+$pm->wait_all_children;
+```
+
+The perl script and results are currently in `/scratch/general/nfs1/u6000989/fha`.
 
 ## Creating input for progressive cactus
 
