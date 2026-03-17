@@ -194,7 +194,7 @@ I am using mostly default options but generating all of the output. Note that it
 
 ## GWA mapping of color and stripe for Hwy154
 
-In addition to all of the comparative alignments, I want to use a series of GWA scans for color pattern (and color) to refine our understanding of the genetics of patter vs color, especially on Hwy154. My plan it to map with multiple genomes, but otherwise follow the same protocol as in the past: [StripeGenetics](https://github.com/zgompert/StripeGenetics). The last analysis used haplotype 2 from cen4280 (VP, green) and haplotype 1 from cen4119 (VP, stripe). I am pretty confident the first of those is a ``green" haplotype whereas I now think the striped stick insect is heterozygous and that the haplotype I used is better thought of as ``melanic" (which is mostly similar to stripe). My plan is to use the six genomes below (the first two were part of the last study):
+In addition to all of the comparative alignments, I want to use a series of GWA scans for color pattern (and color) to refine our understanding of the genetics of patter vs color, especially on Hwy154. My plan is to map with multiple genomes, but otherwise follow the same protocol as in the past: [StripeGenetics](https://github.com/zgompert/StripeGenetics). The last analysis used haplotype 2 from cen4280 (VP, green) and haplotype 1 from cen4119 (VP, stripe). I am pretty confident the first of those is a "green" haplotype whereas I now think the striped stick insect is heterozygous and that the haplotype I used is better thought of as "melanic" (which is mostly similar to stripe). My plan is to use the six genomes below (the first two were part of the last study):
 
 | ID | Location | Phenotype | Haplotype | Allele? | 
 |---------|-----|---------|:--:|--------|
@@ -246,6 +246,54 @@ foreach $genome (@genome){
 
 $pm->wait_all_children;
 ```
+
+Next, I converted the sam files to bam files and sorted and indexed them. The scripts for this are in `/uufs/chpc.utah.edu/common/home/gompert-group3/data/timema_clines_rw_SV/align_fha_mapping_sample_phased_gus2`. This used `samtools` version 1.16.
+
+```bash
+#!/bin/sh
+#SBATCH --time=96:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=28
+#SBATCH --mem=480000
+#SBATCH --account=gompert-kp
+#SBATCH --partition=gompert-kp
+#SBATCH --qos=gompert-kp
+#SBATCH --job-name=sam2bam
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+module load samtools
+
+cd /scratch/general/nfs1/u6000989/fha
+perl /uufs/chpc.utah.edu/common/home/gompert-group3/data/timema_clines_rw_SV/align_fha_mapping_sample_phased_gus2/Sam2BamFork.pl *sam
+```
+Which runs:
+
+```perl
+#!/usr/bin/perl
+#
+# conver sam to bam, then sort and index 
+#
+
+
+use Parallel::ForkManager;
+my $max = 24;
+my $pm = Parallel::ForkManager->new($max);
+
+FILES:
+foreach $sam (@ARGV){
+	$pm->start and next FILES; ## fork
+	$sam =~ m/^([A-Za-z0-9_\-]+\.)sam/ or die "failed to match $fq\n";
+	$base = $1;
+	system "samtools view -b -O BAM -o $base"."bam $sam\n";
+        system "samtools sort -O BAM -o $base"."sorted.bam $base"."bam\n";
+        system "samtools index -b $base"."sorted.bam\n";
+        $pm->finish;
+}
+
+$pm->wait_all_children;
+```
+
 
 ## Creating input for progressive cactus
 
