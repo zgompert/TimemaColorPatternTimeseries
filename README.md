@@ -230,6 +230,30 @@ bcftools query \
 
 The tsv files are the genotype matrixes. These give the start and stop position of the reference allele in the reference genome along with the corresponding alternative allele. Note that 0 genotypes do not necessarily (or even mostly?) meand that an indiviudal has the reference allele, but rather that it does not have the specific alternative allele. Multi-allelic loci (many of them) are encoded over multiple rows. I need to think more about how to combine this information (e.g., cluster alleles based on length or edit distance or something else). I am copying the relevant files from the pangenome to `/uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern/pangenome/`.
 
+I went ahead and added 3 comns to the end that give the reference allele length, alternative allele length, and the difference between them (alternative - reference); these are in the *lengths.tsv files, which I put with the others.
+
+```bash
+awk 'BEGIN{OFS="\t"} 
+     NR==1 {print; next}
+     {
+       ref_len=length($5);
+       alt_len=length($6);
+       print $0, ref_len, alt_len, alt_len-ref_len
+     }' tcrAll8.indels.50bp.genotypes.tsv \
+> tcrAll8.indels.50bp.genotypes.with_lengths.tsv
+  
+  
+awk 'BEGIN{OFS="\t"} 
+     NR==1 {print; next}
+     {
+       ref_len=length($5);
+       alt_len=length($6);
+       print $0, ref_len, alt_len, alt_len-ref_len
+     }' tcrHwy8.indels.50bp.genotypes.tsv \
+> tcrHwy8.indels.50bp.genotypes.with_lengths.tsv
+```
+I need to think more about how to summarize this, but want to finish the mapping first.
+
 # GWA mapping of color and stripe for Hwy154
 
 In addition to all of the comparative alignments, I want to use a series of GWA scans for color pattern (and color) to refine our understanding of the genetics of patter vs color, especially on Hwy154. My plan is to map with multiple genomes, but otherwise follow the same protocol as in the past: [StripeGenetics](https://github.com/zgompert/StripeGenetics). The last analysis used haplotype 2 from cen4280 (VP, green) and haplotype 1 from cen4119 (VP, stripe). I am pretty confident the first of those is a "green" haplotype whereas I now think the striped stick insect is heterozygous and that the haplotype I used is better thought of as "melanic" (which is mostly similar to stripe). My plan is to use the six genomes below (the first two were part of the last study):
