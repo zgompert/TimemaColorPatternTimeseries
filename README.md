@@ -192,7 +192,45 @@ cactus-pangenome tcrHwy8 ch8seqsHwy.txt --outDir /scratch/general/nfs1/u6000989/
 
 I am using mostly default options but generating all of the output. Note that it makes three versions of the graph by default: a full graph, a graph default graph (a graph with problematic sequences clipped out) and an allele frequency-filtered graph (removes SV not supported by 2 or more haplotypes) ([Hickey et al 2024](https://www.nature.com/articles/s41587-023-01793-w)). 
 
-## GWA mapping of color and stripe for Hwy154
+My focus is on insertion-deletion like structural variants. Thus, I am extracting all SVs where the reference and alternate alleles differ by at least 50 bp in length. I did this for both pangenomes, and I worked with the vcf files that were flattened, i.e., vcfbub-normalized vcf files not the raw vcf files, which contain nested variants.
+
+```bash
+ml bcftools/1.16
+
+bcftools view -v indels tcrAll8.vcf.gz \
+  | bcftools norm -m -any \
+  | bcftools view -i 'abs(strlen(REF)-strlen(ALT)) >= 50' \
+  -Oz -o tcrAll8.indels.50bp.vcf.gz
+
+#Lines   total/split/realigned/skipped: 535326/261059/0/0
+
+
+bcftools index -t tcrAll8.indels.50bp.vcf.gz
+
+bcftools query \
+  -f '%CHROM\t%POS\t%END\t%ID\t%REF\t%ALT[\t%GT]\n' \
+  tcrAll8.indels.50bp.vcf.gz \
+  > tcrAll8.indels.50bp.genotypes.tsv
+
+bcftools view -v indels tcrHwy8.vcf.gz \
+  | bcftools norm -m -any \
+  | bcftools view -i 'abs(strlen(REF)-strlen(ALT)) >= 50' \
+  -Oz -o tcrHwy8.indels.50bp.vcf.gz
+
+#Lines   total/split/realigned/skipped: 535326/261059/0/0
+
+
+bcftools index -t tcrHwy8.indels.50bp.vcf.gz
+
+bcftools query \
+  -f '%CHROM\t%POS\t%END\t%ID\t%REF\t%ALT[\t%GT]\n' \
+  tcrHwy8.indels.50bp.vcf.gz \
+  > tcrWhy8.indels.50bp.genotypes.tsv
+``
+
+The tsv files are the genotype matrixes. These give the start and stop position of the reference allele in the reference genome along with the corresponding alternative allele. Note that 0 genotypes do not necessarily (or even mostly?) meand that an indiviudal has the reference allele, but rather that it does not have the specific alternative allele. Multi-allelic loci (many of them) are encoded over multiple rows. I need to think more about how to combine this information (e.g., cluster alleles based on length or edit distance or something else). I am copying the relevant files from the pangenome to `/uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern/pangenome/`.
+
+# GWA mapping of color and stripe for Hwy154
 
 In addition to all of the comparative alignments, I want to use a series of GWA scans for color pattern (and color) to refine our understanding of the genetics of patter vs color, especially on Hwy154. My plan is to map with multiple genomes, but otherwise follow the same protocol as in the past: [StripeGenetics](https://github.com/zgompert/StripeGenetics). The last analysis used haplotype 2 from cen4280 (VP, green) and haplotype 1 from cen4119 (VP, stripe). I am pretty confident the first of those is a "green" haplotype whereas I now think the striped stick insect is heterozygous and that the haplotype I used is better thought of as "melanic" (which is mostly similar to stripe). My plan is to use the six genomes below (the first two were part of the last study):
 
