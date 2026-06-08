@@ -644,8 +644,17 @@ cd /scratch/general/nfs1/u6000989/cactus
 
 cactus jobStore_Prog /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/comp_aligns/chr8haplotypes/ch8_cactus.txt cactusTcrAll8.hal --maxCores 72
 ```
+# Population recombination rate estimation
 
-# Color and patter time series
+To better understand the genetics of stripe vs green on Hwy154, I am estimating population recombination rates. I am doing this using 40 (moderately) high-coverage genomes from FHA. I have morph information on these. I am especially interested in how recombination patterns vary across chromosome 8 for subsets of individuals/morphs (I should be able to assign these to color/pattern genotypes with PCA).
+
+My approach (post variant calling and filtering), is to estiamte demographic histories with smc++ and then recombination with pyrho. I have a container install of smc++ and pyrho working form *Lycaeides* analyses. Everything thus far is in: `/scratch/general/nfs1/u6000989/tcr_recomb`
+
+# TE annotation
+
+Also thinking about stripe vs green, I want to annotate TEs for each of our 34 *T. cristinae* genomes. I began by generating a new repeat library using repeatmodeler. I ran this on all the phased *T. cristinae* genomes and merged (via `vsearch`) those results with Victor's old library. I am now running repeatmasker.
+
+# Color and pattern time series
 
 We are using the *T. cristinae* time series data to test for evidence of rapid evolution combined with balanced processes/stasis at longer time scales. I initially was thinking about this in the context of predictability and ARMA models, but even a few gaps in the time series mess those up. So, instead I am focusing on how rates or change depend or don't on time (i.e., rate-scaling thinking).
 
