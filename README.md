@@ -1,7 +1,26 @@
 # TimemaColorPatternTimeseries
-Combined analyses of color and pattern in Timema cristinae, genetic mapping, comparative alignments and time series
+Combined analyses of color and pattern in *Timema cristinae*, genetic mapping, comparative alignments and time series
 
-# Timema cristinae comparative alignments
+# Color and pattern time series
+
+We are using the *T. cristinae* time series data to test for evidence of rapid evolution combined with balanced processes/stasis at longer time scales. I initially was thinking about this in the context of predictability and ARMA models, but even a few gaps in the time series mess those up. So, instead I am focusing on how rates or change depend or don't on time (i.e., rate-scaling thinking).
+
+# Genomic time series
+
+We have 8 years of GBS data from FHA:
+
+| Year | Notes | N | File path |
+|:--:|---------|:-:|-----------|
+| 2011 | [Gompert et al 2014](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.12238) | 500 | `/gompert-group4/data/timema/timema_experiments/within_generation/ecology_letters_gbs/fq/` |
+| 2013 | [Comeault et al 2015](https://www.cell.com/current-biology/fulltext/S0960-9822(15)00661-2) | 602 | `gompert-group3/data/sheffield/timema/2013fha_gwas/02_ids_reads/cristinae` |
+| 2015 | Unpub. | 76 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` |
+| 2016 | Unpub. | 60 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` |
+| 2017 | Unpub. | 90 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` |
+| 2018 | Unpub. | 145 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` |
+| 2019 | Unpub. | 150 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` |
+| 2023 | Unpub., new data | XX | `/gompert-group6/data/tcr_gbs_timeseries_2026/projet_DUL/` |
+
+# Timema cristinae comparative alignments (will likely save this for later)
 
 I am conducting comparative alignments of all of our phased (haplotype resolved) *Timema cristinae* genomes. This is an ongoing enterprise. I am starting with a bunch of pairwise alignments, but also am trying various approaches to align many genomes together.
 
@@ -654,8 +673,6 @@ My approach (post variant calling and filtering), is to estiamte demographic his
 
 Also thinking about stripe vs green, I want to annotate TEs for each of our 34 *T. cristinae* genomes. I began by generating a new repeat library using repeatmodeler. I ran this on all the phased *T. cristinae* genomes and merged (via `vsearch`) those results with Victor's old library. I am now running repeatmasker.
 
-# Color and pattern time series
 
-We are using the *T. cristinae* time series data to test for evidence of rapid evolution combined with balanced processes/stasis at longer time scales. I initially was thinking about this in the context of predictability and ARMA models, but even a few gaps in the time series mess those up. So, instead I am focusing on how rates or change depend or don't on time (i.e., rate-scaling thinking).
 
 Here is a current hierarchical Bayesian version of the analysis: [R script](RatesCris25-err.R), [stan model](hlm2.stan). I am pretty happy with this. It even accounts for sampling error by simulating expected change by sampling error (binomial sampling based on the sample sizes). Note that for this, I subtract off the effects of sampling for individual repliecate simulations, set negative change to 0, and then take the mean across replicates.
