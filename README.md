@@ -24,7 +24,9 @@ We have 8 years of GBS data from FHA:
 | 2019 | Unpub. | 150 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` | |
 | 2023 | Unpub., new data | XX | `/gompert-group6/data/tcr_gbs_timeseries_2026/projet_DUL/` | [LD2023_metadata.xlsx](https://github.com/user-attachments/files/32208882/LD2023_metadata.xlsx) [Tcristinae_LD2023_DNA_ID.xlsx](https://github.com/user-attachments/files/32208881/Tcristinae_LD2023_DNA_ID.xlsx) |
 
-I am initially processing all of this in `/scratch/general/nfs1/u6000989/tcr_fha_timeseries/` but this is part of the project `/uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern_complexity/gbs_time_series` and all of the data processin scripts will be kept in there. This is also connected to past work from Marion, which is in `/uufs/chpc.utah.edu/common/home/gompert-group3/projects/timema_timeseries_Ne`. 
+I am initially processing all of this in `/scratch/general/nfs1/u6000989/tcr_fha_timeseries/` but this is part of the project `/uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern_complexity/gbs_time_series` and all of the data processing scripts will be kept in there. This is also connected to past work from Marion, which is in `/uufs/chpc.utah.edu/common/home/gompert-group3/projects/timema_timeseries_Ne`. 
+
+For alignment and variant calling, I am using a green (unstriped) genome from [Gompert et al 2025](https://www.science.org/doi/full/10.1126/science.adp3745): `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gus_hap_cen4280/HiRise/Hap2/chroms_final_assembly.fasta.masked`.
 
 # Timema cristinae comparative alignments (will likely save this for later)
 
