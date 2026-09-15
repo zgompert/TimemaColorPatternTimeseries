@@ -28,6 +28,61 @@ I am initially processing all of this in `/scratch/general/nfs1/u6000989/tcr_fha
 
 For alignment and variant calling, I am using a green (unstriped) genome from [Gompert et al 2025](https://www.science.org/doi/full/10.1126/science.adp3745): `/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gus_hap_cen4280/HiRise/Hap2/chroms_final_assembly.fasta.masked`.
 
+I used the `aln` and `samse` algorithms from `bwa` to align the sequence data to the reference genome. Here are the example scripts for the 2011 samples, the others are the same:
+
+```bash
+#!/bin/bash 
+#SBATCH --time=72:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=14
+#SBATCH --mem=120000
+#SBATCH --account=gompert
+#SBATCH --qos=notchpeak
+#SBATCH --partition=notchpeak
+#SBATCH --job-name=bwa
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+ml bwa
+## version Version: 0.7.19-r1273
+
+cd /scratch/general/nfs1/u6000989/tcr_fha_timeseries/dat_fha_2011
+
+perl /uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern_complexity/gbs_time_series/data_scripts/bwa_aln_fork.pl *astq
+```
+Which runs:
+
+```perl
+#!/usr/bin/perl
+#
+# bwa aln and samse
+#
+
+
+use Parallel::ForkManager;
+my $max = 28;
+my $pm = Parallel::ForkManager->new($max);
+
+my $genome  = "/uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gus_hap_cen4280/HiRise/Hap2/chroms_final_assembly.fasta.masked";
+
+FILES:
+foreach $fq (@ARGV){
+	$pm->start and next FILES; ## fork
+	if ($fq =~ m/(\S+)\.fastq/){
+		$ind = "fha2011_$1";
+	}
+	else {
+                        die "Failed to match $file\n";
+                }
+                system "bwa aln -n 5 -l 20 -k 2 -t 1 -q 10 -f a_$ind".".sai $genome $fq\n";
+                system "bwa samse -n 1 -r \'\@RG\\tID:$ind\\tPL:ILLUMINA\\tLB:$ind\\tSM:$ind"."\' -f a_$ind".".sam $genome a_$ind".".sai $fq\n";
+           $pm->finish;
+        
+}
+
+$pm->wait_all_children;
+```
+
 # Timema cristinae comparative alignments (will likely save this for later)
 
 I am conducting comparative alignments of all of our phased (haplotype resolved) *Timema cristinae* genomes. This is an ongoing enterprise. I am starting with a bunch of pairwise alignments, but also am trying various approaches to align many genomes together.
