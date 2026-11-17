@@ -23,7 +23,7 @@ We have 8 years of GBS data from FHA:
 | 2018 | Unpub. | 145 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` | |
 | 2019 | Unpub. | 150 | `/gompert-group3/data/sheffield/rawseq/2021_FHA_time-series/TICR/` | |
 | 2022 | Unpub. | 226 | `/gompert-group6/data/timema_stripe_exp_2022/` | |
-| 2023 | Unpub., new data | XX | `/gompert-group6/data/tcr_gbs_timeseries_2026/projet_DUL/` | [LD2023_metadata.xlsx](https://github.com/user-attachments/files/32208882/LD2023_metadata.xlsx) [Tcristinae_LD2023_DNA_ID.xlsx](https://github.com/user-attachments/files/32208881/Tcristinae_LD2023_DNA_ID.xlsx) |
+| 2023 | Unpub., new data | 1954 (189 FHA) | `/gompert-group6/data/tcr_gbs_timeseries_2026/projet_DUL/` | [LD2023_metadata.xlsx](https://github.com/user-attachments/files/32208882/LD2023_metadata.xlsx) [Tcristinae_LD2023_DNA_ID.xlsx](https://github.com/user-attachments/files/32208881/Tcristinae_LD2023_DNA_ID.xlsx) |
 
 I am initially processing all of this in `/scratch/general/nfs1/u6000989/tcr_fha_timeseries/` but this is part of the project `/uufs/chpc.utah.edu/common/home/gompert-group4/projects/timema_color_pattern_complexity/gbs_time_series` and all of the data processing scripts will be kept in there. This is also connected to past work from Marion, which is in `/uufs/chpc.utah.edu/common/home/gompert-group3/projects/timema_timeseries_Ne`. 
 
