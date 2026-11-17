@@ -83,6 +83,78 @@ foreach $fq (@ARGV){
 $pm->wait_all_children;
 ```
 
+Next, I compressed sorted and indexed the alignment files:
+
+```bash
+#!/bin/sh
+#SBATCH --time=96:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=24
+#SBATCH --mem=240000
+#SBATCH --account=gompert-np
+#SBATCH --partition=gompert-np
+#SBATCH --qos=gompert-np
+#SBATCH --job-name=sam2bam
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+module load samtools/1.16
+## 1.16
+
+cd /scratch/general/nfs1/u6000989/tcr_fha_timeseries/aln
+perl Sam2BamFork.pl *.sam
+```
+which runs:
+```perl 
+#!/usr/bin/perl
+#
+# convert sam to bam, then sort and index 
+#
+
+
+use Parallel::ForkManager;
+my $max = 48;
+my $pm = Parallel::ForkManager->new($max);
+
+FILES:
+foreach $sam (@ARGV){
+	$pm->start and next FILES; ## fork
+	$sam =~ m/^([A-Za-z0-9_\-]+\.)sam/ or die "failed to match $fq\n";
+	$base = $1;
+	system "samtools view -b -O BAM -o $base"."bam $sam\n";
+	system "samtools sort -O BAM -o $base"."sorted.bam $base"."bam\n";
+	system "samtools index -b $base"."sorted.bam\n";
+	$pm->finish;
+}
+
+$pm->wait_all_children;
+```
+Lastly, I performed variant calling with the 2038 FHA time series samples with `bcftools`:
+
+```bash
+#!/bin/sh
+#SBATCH --time=240:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=120000
+#SBATCH --account=gompert
+#SBATCH --partition=gompert-grn
+#SBATCH --qos=gompert-grn
+#SBATCH --job-name=bcf
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=zach.gompert@usu.edu
+
+module load bcftools/1.16
+## 1.16
+
+cd /scratch/general/nfs1/u6000989/tcr_fha_timeseries/aln
+
+bcftools mpileup -b bams_fha_ts -C 50 -d 500 -f /uufs/chpc.utah.edu/common/home/gompert-group4/data/timema/hic_genomes/t_crist_gus_hap_cen4280/HiRise/Hap2/chroms_final_assembly.fasta.masked -q 20 -Q 30 -I -Ou -a DP,AD,ADF,ADR | bcftools call -v -c -p 0.01 -P 0.001 -O v -o tcr_fha_ts.vcf
+```
+
+
 # Timema cristinae comparative alignments (will likely save this for later)
 
 I am conducting comparative alignments of all of our phased (haplotype resolved) *Timema cristinae* genomes. This is an ongoing enterprise. I am starting with a bunch of pairwise alignments, but also am trying various approaches to align many genomes together.
