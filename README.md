@@ -170,7 +170,7 @@ We have four phased genomes that were part of [Gompert et al. 2025](https://www.
 | cen4120 | R12 | Green   | Y | Y | h1 |
 | cen4122 | R23 | Stripe  | Y | Y |  |
 | 24_0016 | VP  | Green   | Y | Y | Y |
-| 24_0028 | VP  | Green   | Y | Y |  |
+| 24_0028 | VP  | Green   | Y | Y | pending |
 | 24_0029 | VP  | Green   | Y | Y |  |
 | 24_0030 | VP  | Green   | Y | Y |  |
 | 24_0038 | VP  | Melanic | Y | Y | h1 |
