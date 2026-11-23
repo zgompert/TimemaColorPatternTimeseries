@@ -274,7 +274,9 @@ close (IN);
 close (OUT);
 ```
 
-This left me with xxx variants in `filtered2x_tcr_fha_ts.vcf`. I then xxxx.
+This left me with 28,360 variants in `filtered2x_tcr_fha_ts.vcf`. This is fewer than I might have expected, but we are dealing with a single population. But I do wonder how much minor differences in SNPs/sequencing across the annual data sets is causing a large proportion of putative SNPs to be filtered out (we did have 4,168,455 from the initial call). Still I think this is fine for SV genotypes and thus for our current goals.
+
+I then xxxx.
 
 
 # Timema cristinae comparative alignments (will likely save this for later)
